@@ -15,6 +15,9 @@ public class DispatcherServlet extends HttpServlet {
   @Autowired
   UserController userController;
 
+  @Autowired
+  ArticleController articleController;
+
   @Override
   protected void service(HttpServletRequest request,
                          HttpServletResponse response)
@@ -28,6 +31,19 @@ public class DispatcherServlet extends HttpServlet {
       case "/mvc/user/userInfo" -> userController.userInfo(request, response);
       case "/mvc/user/addUser" -> userController.addUser(request, response);
       case "/mvc/user/login" -> userController.login(request, response);
+
+      case "/mvc/article/articleList" -> articleController.articleList(request, response); //실행
+
+      case "/mvc/article/addArticle" -> articleController.articleAdd(request, response);
+      case "/mvc/article/articleForm" -> articleController.articleForm(request, response); //실행
+
+      case "/mvc/article/articleView" -> articleController.articleView(request, response); //실행
+
+      case "/mvc/article/updateArticle" -> articleController.articleUpdate(request, response);
+      case "/mvc/article/articleUpdateForm" -> articleController.updateForm(request, response); //실행
+
+      case "/mvc/article/deleteArticle" -> articleController.articleDelete(request, response);
+      case "/mvc/article/articleDeleteForm" -> articleController.deleteForm(request, response); //실행
       default -> response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
   }

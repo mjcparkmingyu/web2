@@ -18,7 +18,7 @@ public class ArticleDao {
           "select articleId, title, userId, name, left(cdate,16) cdate from article order by articleId desc limit ?,?";
 
   private static final String GET_ARTICLE =
-          "select articleId, title, content, userId, name, left(cdate,16) cdate, left(udate,16) udatefrom article where articleId=?";
+          "select articleId, title, content, userId, name, left(cdate,16) cdate, left(udate,16) udate from article where articleId=?";
 
   private static final String ADD_ARTICLE =
       "insert article(title, content, userId, name) values(:title, :content, :userId, :name)";

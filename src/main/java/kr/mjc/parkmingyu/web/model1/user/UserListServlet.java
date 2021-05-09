@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+//중요
 
 @WebServlet("/model1/user/userList")
 public class UserListServlet extends HttpServlet {
