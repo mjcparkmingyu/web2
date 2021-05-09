@@ -2,6 +2,7 @@ package kr.mjc.parkmingyu.web.mvc;
 
 import kr.mjc.parkmingyu.web.dao.Article;
 import kr.mjc.parkmingyu.web.dao.ArticleDao;
+import kr.mjc.parkmingyu.web.dao.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Component
@@ -47,16 +49,18 @@ public class ArticleController {
      */
     public void articleAdd(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-
         int userIdnum = Integer.parseInt(request.getParameter("userId"));
         Article article = new Article();
         article.setTitle(request.getParameter("title"));
         article.setContent(request.getParameter("content"));
         article.setUserId(userIdnum);
         article.setName(request.getParameter("name"));
-
-        articleDao.addArticle(article);
-        response.sendRedirect(request.getContextPath() + "/mvc/article/articleList");
+        try {
+            articleDao.addArticle(article);
+            response.sendRedirect(request.getContextPath() + "/mvc/article/articleList");
+        } catch (Exception e) {
+            response.sendRedirect(request.getContextPath() + "/mvc/article/articleForm?msg= wrong userId");
+        }
     }
 
     /**
@@ -123,7 +127,7 @@ public class ArticleController {
 
         else {
             response.sendRedirect(request.getContextPath() +
-                    "/mvc/article/updateForm?msg=wrong");
+                    "/mvc/article/updateForm?msg=wrong articleId or UserId");
         }
     }
 

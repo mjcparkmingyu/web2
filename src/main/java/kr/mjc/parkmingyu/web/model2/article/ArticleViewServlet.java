@@ -1,7 +1,9 @@
 package kr.mjc.parkmingyu.web.model2.article;
 
+import kr.mjc.parkmingyu.web.dao.Article;
 import kr.mjc.parkmingyu.web.dao.ArticleDao;
 import kr.mjc.parkmingyu.web.dao.User;
+import kr.mjc.parkmingyu.web.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 
@@ -27,4 +29,3 @@ public class ArticleViewServlet extends HttpServlet {
     }
 
 }
-

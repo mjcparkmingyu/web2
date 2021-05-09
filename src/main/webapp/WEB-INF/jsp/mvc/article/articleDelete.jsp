@@ -7,7 +7,7 @@
     <p><input type="text" name="articleId" placeholder="articleId" required/></p>
     <p><input type="text" name="userId" placeholder="userId" required/></p>
     <p>
-        <button type="submit">저장</button>
+        <button type="submit">삭제</button>
     </p>
 </form>
 <p style="color:red;"><%= Optional.ofNullable(request.getParameter("msg"))
