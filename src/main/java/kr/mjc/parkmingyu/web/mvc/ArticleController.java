@@ -69,7 +69,7 @@ public class ArticleController {
     public void articleView(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("articleView", articleDao.getArticle(596));
+        request.setAttribute("articleView", articleDao.getArticle(654));
         request.getRequestDispatcher("/WEB-INF/jsp/mvc/article/articleView.jsp")
                 .forward(request, response);
     }
