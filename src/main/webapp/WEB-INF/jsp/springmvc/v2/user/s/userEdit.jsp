@@ -7,7 +7,7 @@
 <body>
 <%@ include file="/WEB-INF/jsp/springmvc/v2/menu.jsp" %>
 <h3>개인 정보 수정</h3>
-<form action="./springmvc/v2/user/updateUser" method="post">
+<form action="./app/springmvc/v2/user/s/updateUser" method="post">
   <p><input type="email" name="email"
             value="${empty user.email? sessionScope.USER.email : user.email}"
             placeholder="이메일" required autofocus/>

@@ -121,7 +121,8 @@ public class ArticleController {
         article.setName(user.getName());
 
         articleDao.addArticle(article);
-        response.sendRedirect("/mvc/article/articleList");
+        response
+                .sendRedirect(request.getContextPath() + "/mvc/article/articleList");
     }
 
     /**
@@ -177,3 +178,4 @@ public class ArticleController {
             response.sendError(Response.SC_UNAUTHORIZED);
     }
 }
+

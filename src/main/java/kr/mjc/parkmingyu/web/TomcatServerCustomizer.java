@@ -21,7 +21,7 @@ import java.util.HashSet;
 @Component
 @Slf4j
 public class TomcatServerCustomizer
-    implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+        implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
 
   @Override
   public void customize(TomcatServletWebServerFactory factory) {
@@ -32,16 +32,19 @@ public class TomcatServerCustomizer
       jspPropertyGroup.addUrlPattern("*.html");
       jspPropertyGroup.setPageEncoding("UTF-8");
       JspPropertyGroupDescriptor jspPropertyGroupDescriptor =
-          new JspPropertyGroupDescriptorImpl(jspPropertyGroup);
+              new JspPropertyGroupDescriptorImpl(jspPropertyGroup);
 
       Collection<JspPropertyGroupDescriptor> jspPropertyGroupDescriptors =
-          new HashSet<>();
+              new HashSet<>();
       jspPropertyGroupDescriptors.add(jspPropertyGroupDescriptor);
 
       JspConfigDescriptor jspConfigDescriptor =
-          new JspConfigDescriptorImpl(jspPropertyGroupDescriptors,
-              new HashSet<>());
+              new JspConfigDescriptorImpl(jspPropertyGroupDescriptors,
+                      new HashSet<>());
       context.setJspConfigDescriptor(jspConfigDescriptor);
+
+      // add welcome file list
+      context.addWelcomeFile("/index.html");
     });
     factory.setTomcatContextCustomizers(col);
     log.info("톰캣 커스터마이저 실행");

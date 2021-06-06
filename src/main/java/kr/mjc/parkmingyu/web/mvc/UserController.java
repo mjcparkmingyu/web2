@@ -37,10 +37,10 @@ public class UserController {
   /**
    * 사용자 등록 화면
    */
-  public void userForm(HttpServletRequest request, HttpServletResponse response)
+  public void joinForm(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
 
-    request.getRequestDispatcher("/WEB-INF/jsp/mvc/user/userForm.jsp")
+    request.getRequestDispatcher("/WEB-INF/jsp/mvc/user/joinForm.jsp")
             .forward(request, response);
   }
 
@@ -81,7 +81,7 @@ public class UserController {
       response.sendRedirect(request.getContextPath() + "/mvc/user/userList");
     } catch (DuplicateKeyException e) {
       response.sendRedirect(
-              request.getContextPath() + "/mvc/user/userForm?msg=Duplicate email");
+              request.getContextPath() + "/mvc/user/joinForm?msg=Duplicate email");
     }
   }
 

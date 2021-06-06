@@ -37,10 +37,10 @@ public class UserController {
    */
   @GetMapping("/userList")
   public void userList(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     String pageStr = Optional.ofNullable(request.getParameter("page")).orElse(
-        "1");
+            "1");
     int page = Integer.parseInt(pageStr);
     int count = 25;
     int offset = (page - 1) * count;
@@ -49,18 +49,18 @@ public class UserController {
     request.setAttribute("userList", userList);
 
     request.getRequestDispatcher("/WEB-INF/jsp/springmvc/v1/user/userList.jsp")
-        .forward(request, response);
+            .forward(request, response);
   }
 
   /**
    * 사용자 등록 화면
    */
-  @GetMapping("/userForm")
+  @GetMapping("/joinForm")
   public void userForm(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
-    request.getRequestDispatcher("/WEB-INF/jsp/springmvc/v1/user/userForm.jsp")
-        .forward(request, response);
+    request.getRequestDispatcher("/WEB-INF/jsp/springmvc/v1/user/joinForm.jsp")
+            .forward(request, response);
   }
 
   /**
@@ -69,10 +69,10 @@ public class UserController {
   @GetMapping("/loginForm")
   public void loginForm(HttpServletRequest request,
                         HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     request.getRequestDispatcher("/WEB-INF/jsp/springmvc/v1/user/loginForm.jsp")
-        .forward(request, response);
+            .forward(request, response);
   }
 
   /**
@@ -80,18 +80,18 @@ public class UserController {
    */
   @GetMapping("/userInfo")
   public void userInfo(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+          throws ServletException, IOException {
 
     request.getRequestDispatcher("/WEB-INF/jsp/springmvc/v1/user/userInfo.jsp")
-        .forward(request, response);
+            .forward(request, response);
   }
 
   /**
    * 사용자 등록 액션
    */
-  @PostMapping("/addUser")
+  @PostMapping("/join")
   public void addUser(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+          throws IOException {
 
     User user = new User();
     user.setEmail(request.getParameter("email"));
@@ -101,11 +101,11 @@ public class UserController {
     try {
       userDao.addUser(user);
       response.sendRedirect(
-          request.getContextPath() + "/springmvc/v1/user/userList");
+              request.getContextPath() + "/app/springmvc/v1/user/userList");
     } catch (DuplicateKeyException e) {
       response.sendRedirect(
-          request.getContextPath() +
-              "/springmvc/v1/user/userForm?msg=Duplicate email");
+              request.getContextPath() +
+                      "/app/springmvc/v1/user/userForm?msg=Duplicate email");
     }
   }
 
@@ -114,7 +114,7 @@ public class UserController {
    */
   @PostMapping("/login")
   public void login(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+          throws IOException {
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
@@ -124,10 +124,10 @@ public class UserController {
       HttpSession session = request.getSession();
       session.setAttribute("USER", user);
       response.sendRedirect(
-          request.getContextPath() + "/springmvc/v1/user/userInfo");
+              request.getContextPath() + "/app/springmvc/v1/user/userInfo");
     } catch (EmptyResultDataAccessException e) {
       response.sendRedirect(request.getContextPath() +
-          "/springmvc/v1/user/loginForm?msg=Wrong email or password");
+              "/app/springmvc/v1/user/loginForm?msg=Wrong email or password");
     }
   }
 
@@ -137,7 +137,7 @@ public class UserController {
    */
   @GetMapping("/logout")
   public void logout(HttpServletRequest request, HttpServletResponse response)
-      throws IOException {
+          throws IOException {
     HttpSession session = request.getSession();
     session.invalidate();
     response.sendRedirect(request.getContextPath() + "/");

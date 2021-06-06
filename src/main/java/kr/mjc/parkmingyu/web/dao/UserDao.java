@@ -17,28 +17,23 @@ import java.util.Map;
 @Component
 public class UserDao {
 
-  private static final String LIST_USERS
-          = "select userId, email, name from user order by userId desc limit ?,?";
-
   public static final String COUNT_USERS = "select count(userId) from user";
-
-  private static final String ADD_USER = """
-      insert user(email, password, name) 
-      values(:email, sha2(:password,256), :name)""";
-
-  private static final String LOGIN = """
-      select userId, email, name from user 
-      where (email, password) = (?, sha2(?,256))""";
-
-  private static final String GET_USER =
-          "select userId, email, name from user where userId=?";
-
   public static final String UPDATE_USER =
           "update user set email=:email, name=:name where userId=:userId";
-
+  private static final String LIST_USERS
+          = "select userId, email, name from user order by userId desc limit ?,?";
+  private static final String ADD_USER = """
+      insert user(email, password, name)
+      values(:email, sha2(:password,256), :name)""";
+  private static final String LOGIN = """
+      select userId, email, name from user
+      where (email, password) = (?, sha2(?,256))""";
+  private static final String GET_USER =
+          "select userId, email, name from user where userId=?";
   private static final String UPDATE_PASSWORD = """
       update user set password=sha2(:newPassword,256)
       where userId=:userId and password=sha2(:password,256)""";
+
 
   private JdbcTemplate jdbcTemplate;
 
@@ -63,7 +58,7 @@ public class UserDao {
   /**
    * 사용자 수
    */
-  public int countUsers() {
+  public Integer countUsers() {
     return jdbcTemplate.queryForObject(COUNT_USERS, Integer.class);
   }
 
@@ -121,3 +116,4 @@ public class UserDao {
     return namedParameterJdbcTemplate.update(UPDATE_PASSWORD, params);
   }
 }
+

@@ -57,16 +57,16 @@ public class UserController {
    * 사용자 등록 액션
    * html form에서 submit한 데이터가 @ModelAttribute 객체(Command Object)에 바인딩됨.
    */
-  @PostMapping("/addUser")
+  @PostMapping("/join")
   public String addUser(@ModelAttribute User user,
                         RedirectAttributes attributes) {
     try {
       userDao.addUser(user);
-      return "redirect:/springmvc/v2/user/userList";
+      return "redirect:/app/springmvc/v2/user/userList";
     } catch (DuplicateKeyException e) {
       // redirect할때 attribute를 저장
       attributes.addFlashAttribute("msg", "Duplicate email");
-      return "redirect:/springmvc/v2/user/userForm";
+      return "springmvc/v2/user/joinForm";
     }
   }
 
@@ -84,7 +84,7 @@ public class UserController {
     } catch (EmptyResultDataAccessException e) { // 로그인 실패할 경우
       attributes.addFlashAttribute("email", email);
       attributes.addFlashAttribute("msg", "Wrong email or password");
-      return "redirect:/springmvc/v2/user/loginForm?returnUrl=" +
+      return "redirect:/app/springmvc/v2/user/loginForm?returnUrl=" +
               URLEncoder.encode(returnUrl, Charset.defaultCharset());
     }
   }
@@ -92,7 +92,7 @@ public class UserController {
   /**
    * 개인정보 수정 액션
    */
-  @PostMapping("/updateUser")
+  @PostMapping("/s/updateUser")
   public String updateUser(User user,
                            @SessionAttribute("USER") User sessionUser,
                            RedirectAttributes attributes) {
@@ -102,36 +102,37 @@ public class UserController {
       // 개인정보 수정 후에 세션 업데이트
       sessionUser.setEmail(user.getEmail());
       sessionUser.setName(user.getName());
-      return "redirect:/springmvc/v2/user/myInfo";
+      return "springmvc/v2/user/s/myInfo";
     } catch (DuplicateKeyException e) {
       attributes.addFlashAttribute("user", user);
       attributes.addFlashAttribute("msg", "Duplicate email");
-      return "redirect:/springmvc/v2/user/userEdit";
+      return "redirect:/app/springmvc/v2/user/s/userEdit";
     }
   }
 
   /**
    * 비밀번호 수정 액션
    */
-  @PostMapping("/updatePassword")
+  @PostMapping("/s/updatePassword")
   public String updatePassword(String password, String newPassword,
                                @SessionAttribute("USER") User user, RedirectAttributes attributes) {
     int result =
             userDao.updatePassword(user.getUserId(), password, newPassword);
     if (result > 0) {
-      return "redirect:/springmvc/v2/user/myInfo";
+      return "springmvc/v2/user/s/myInfo";
     } else {
       attributes.addFlashAttribute("msg", "Wrong password");
-      return "redirect:/springmvc/v2/user/passwordForm";
+      return "redirect:/app/springmvc/v2/user/s/passwordForm";
     }
   }
 
   /**
    * 로그 아웃
    */
-  @GetMapping("/logout")
+  @GetMapping("/s/logout")
   public String logout(HttpSession session) {
     session.invalidate();
     return "redirect:/";
   }
 }
+

@@ -1,5 +1,6 @@
 package kr.mjc.parkmingyu.web.springmvc.v2;
 
+import kr.mjc.parkmingyu.web.HttpUtils;
 import kr.mjc.parkmingyu.web.dao.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -22,13 +23,9 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;
 
         // 로그인 안했으면 로그인 화면으로
-        String requestURI = request.getRequestURI();
-        String queryString = request.getQueryString();
-        String returnUrl = queryString == null ? requestURI :
-                String.format("%s?%s", requestURI, queryString);
-
+        String returnUrl = HttpUtils.getRequestURLWithQueryString(request);
         String loginUrl = String
-                .format("%s/springmvc/v2/user/loginForm?returnUrl=%s",
+                .format("%s/app/springmvc/v2/user/loginForm?returnUrl=%s",
                         request.getContextPath(),
                         URLEncoder.encode(returnUrl, Charset.defaultCharset()));
         response.sendRedirect(loginUrl);

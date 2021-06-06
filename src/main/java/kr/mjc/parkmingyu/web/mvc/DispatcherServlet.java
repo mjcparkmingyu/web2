@@ -1,5 +1,6 @@
 package kr.mjc.parkmingyu.web.mvc;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/mvc/*")
+@Slf4j
 public class DispatcherServlet extends HttpServlet {
 
   @Autowired
@@ -22,31 +24,32 @@ public class DispatcherServlet extends HttpServlet {
   protected void service(HttpServletRequest request,
                          HttpServletResponse response)
           throws ServletException, IOException {
-    String uri = request.getRequestURI();
+    String uri = request.getPathInfo();
     switch (uri) {
-      case "/mvc/user/userList" -> userController.userList(request, response);
-      case "/mvc/user/userForm" -> userController.userForm(request, response);
-      case "/mvc/user/loginForm" -> userController.loginForm(request, response);
-      case "/mvc/user/userInfo" -> userController.userInfo(request, response);
-      case "/mvc/user/addUser" -> userController.addUser(request, response);
-      case "/mvc/user/login" -> userController.login(request, response);
-      case "/mvc/user/logout" -> userController.logout(request, response);
+      case "/user/userList" -> userController.userList(request, response);
+      case "/user/joinForm" -> userController.joinForm(request, response);
+      case "/user/loginForm" -> userController.loginForm(request, response);
+      case "/user/userInfo" -> userController.userInfo(request, response);
+      case "/user/addUser" -> userController.addUser(request, response);
+      case "/user/login" -> userController.login(request, response);
+      case "/user/logout" -> userController.logout(request, response);
 
-      case "/mvc/article/articleList" -> articleController
+      case "/article/articleList" -> articleController
               .articleList(request, response);
-      case "/mvc/article/articleView" -> articleController
+      case "/article/articleView" -> articleController
               .articleView(request, response);
-      case "/mvc/article/articleForm" -> articleController
+      case "/article/articleForm" -> articleController
               .articleForm(request, response);
-      case "/mvc/article/articleEdit" -> articleController
+      case "/article/articleEdit" -> articleController
               .articleEdit(request, response);
-      case "/mvc/article/addArticle" -> articleController
+      case "/article/addArticle" -> articleController
               .addArticle(request, response);
-      case "/mvc/article/updateArticle" -> articleController
+      case "/article/updateArticle" -> articleController
               .updateArticle(request, response);
-      case "/mvc/article/deleteArticle" -> articleController
+      case "/article/deleteArticle" -> articleController
               .deleteArticle(request, response);
       default -> response.sendError(HttpServletResponse.SC_NOT_FOUND);
     }
   }
 }
+

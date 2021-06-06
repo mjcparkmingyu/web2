@@ -6,22 +6,20 @@
 <body>
 <%@ include file="/WEB-INF/jsp/springmvc/v2/menu.jsp" %>
 <h3>게시글 보기</h3>
-<p><a
-    href="./springmvc/v2/article/articleList?page=${sessionScope.currentPage}&count=${sessionScope.countPerPage}">목록</a>
-  <a
-      href="./springmvc/v2/article/articleEdit?articleId=${article.articleId}">수정</a>
+<p><a href="${sessionScope.listPage}">목록</a>
+  <a href="./app/springmvc/v2/article/s/articleEdit?articleId=${article.articleId}">수정</a>
   <a id="btnDel"
-     href="./springmvc/v2/article/deleteArticle?articleId=${article.articleId}">삭제</a>
+     href="./app/springmvc/v2/article/s/deleteArticle?articleId=${article.articleId}">삭제</a>
 </p>
 <hr/>
-<p>${article.articleId}. ${article.title}</p>
+<p>${article.articleId}. ${article.titleHtml}</p>
 <p>${article.name} / ${article.udate}</p>
 <hr/>
 <p>${article.contentHtml}</p>
 <hr/>
 <script>
   document.getElementById("btnDel").onclick = function () {
-    return confirm("삭제하시겠습니까?");
+    return confirm("삭제합니까?");
   }
 </script>
 </body>

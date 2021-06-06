@@ -9,7 +9,9 @@
 <p>사용자 번호 : ${sessionScope.USER.userId}</p>
 <p>이메일 : ${sessionScope.USER.email}</p>
 <p>이름 : ${sessionScope.USER.name}</p>
-<p><a href="./springmvc/v2/user/userEdit">개인정보 수정</a>
-  <a href="./springmvc/v2/user/passwordForm">비밀번호 수정</a></p>
+<p><a href="./app/springmvc/v2/user/s/userEdit">개인정보 수정</a>
+  <a href="./app/springmvc/v2/user/s/passwordForm">비밀번호 수정</a>
+  <a href="./app/springmvc/v2/article/userArticles?userId=${sessionScope.USER.userId}">내가
+    쓴 글</a></p>
 </body>
 </html>
